@@ -3,11 +3,14 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class HTMLRead implements ActionListener {
+
+public class HTMLRead implements ActionListener, KeyListener {
 
     private String website;
     private String keyword;
@@ -19,6 +22,7 @@ public class HTMLRead implements ActionListener {
     public HTMLRead(){
         GUI();
     }
+
 
     private JFrame mainFrame;
     private JLabel siteLabel;
@@ -36,7 +40,9 @@ public class HTMLRead implements ActionListener {
         siteLabel = new JLabel("        Website:");
         wordLabel = new JLabel("       Keyword:");
         siteInput = new JTextField();
+        siteInput.addKeyListener(this);
         wordInput = new JTextField();
+        wordInput.addKeyListener(this);
         linkList = new JTextArea();
         scrollPane = new JScrollPane(linkList);
         button = new JButton("Search");
@@ -98,5 +104,23 @@ public class HTMLRead implements ActionListener {
         } catch(Exception e) {
             System.out.println(e);
         }
+    }
+
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            website = siteInput.getText();
+            keyword = wordInput.getText();
+            System.out.println(website+", "+keyword);
+            pullLink();
+        }
+    }
+
+
+    public void keyReleased(KeyEvent e) {
+
     }
 }
